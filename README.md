@@ -126,5 +126,15 @@ python generate_data.py
 
 ---
 
-*Dataset is fully synthetic. All customer IDs, amounts, and behavioural patterns were
-programmatically generated for portfolio demonstration purposes.*
+## 📄 Data Source & Citation
+
+> Chen, D., Sain, S.L., & Guo, K. (2012). *Data mining for the online retail industry: A case
+> study of RFM model-based customer segmentation using data mining.* Journal of Database
+> Marketing & Customer Strategy Management, 19(3), 197–208.
+>
+> **UCI Machine Learning Repository** — Online Retail Dataset (ID: 352)
+> Licence: CC BY 4.0 — freely usable for academic & portfolio projects.
+>
+> 4,338 real customers · 392,692 real transactions · 37 countries · Dec 2010 – Dec 2011.
+> Customer demographics (age, gender) are not included — real transactional data is
+> anonymised by law (GDPR / PCI-DSS).
