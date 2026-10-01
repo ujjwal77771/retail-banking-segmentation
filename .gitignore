@@ -1,0 +1,38 @@
+# ── Raw downloaded source files (too large for GitHub, re-downloadable) ──
+data/online_retail.zip
+data/online_retail_raw/
+data/ecommerce_backup.csv
+
+# ── Python cache ──
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# ── Virtual environments ──
+.venv/
+venv/
+env/
+
+# ── OS files ──
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE files ──
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ── Jupyter ──
+.ipynb_checkpoints/
+*.ipynb
+
+# ── Temp / scratch ──
+*.tmp
+*.log

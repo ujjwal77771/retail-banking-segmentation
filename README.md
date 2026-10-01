@@ -1,30 +1,130 @@
-# Retail Banking Customer Segmentation & Churn Dashboard
+# 🏦 Retail Banking Customer Segmentation & Churn Dashboard
 
-A highly explainable, business-focused **Power BI** project designed for retail banking analytics. 
-Instead of a black-box machine learning model, this project uses a classic **RFM (Recency, Frequency, Monetary)** model combined with K-Means clustering (via Python integrated directly into Power Query) to group customers based on their true spending behavior.
+> **Portfolio Project for Finance / Data Analytics Roles**
+> Demonstrates: Python · scikit-learn · Power BI · Advanced DAX · RFM Analysis · K-Means Clustering
+
+---
 
 ## 🎯 Business Problem
-The bank has thousands of retail customers, but a limited marketing and retention budget. We need to instantly identify:
-1. **The Champions:** Our most valuable, high-frequency customers.
-2. **The Churn Risks:** High-value customers who suddenly stopped transacting over the last 90 days.
-3. **The Low Value:** Customers who transact rarely and keep low balances.
 
-## 🛠️ Tech Stack
-*   **Python:** Data generation and K-Means Clustering (`pandas`, `scikit-learn`).
-*   **Power BI:** Data modeling, Power Query (M), Advanced DAX.
-*   **Business Logic:** RFM Analysis, Cohort Retention, What-If Scenario Analysis.
+A retail bank has **5,000 active customers** and a fixed marketing budget. The question is:
 
-## 🚀 Advanced Features Used
-1.  **Python in Power Query:** Clustering algorithms run natively inside Power BI's data prep layer.
-2.  **Cohort Analysis (DAX):** Time-intelligence tracking to see customer retention drop-off month over month.
-3.  **What-If Parameters:** A dynamic slider allowing the business user to model the ROI of a cash-back retention campaign.
+> *"Which customers should we spend retention money on, and how much is that worth?"*
+
+Without segmentation, the marketing team either treats everyone the same (wasteful) or relies on
+gut-feel (error-prone). This dashboard provides a data-driven answer in seconds.
+
+---
+
+## 🔬 Methodology: RFM + K-Means
+
+**RFM** stands for:
+
+| Feature | Definition | High = Good? |
+|---------|-----------|:---:|
+| **R**ecency | Days since last transaction | ❌ (lower is better) |
+| **F**requency | Total number of transactions | ✅ |
+| **M**onetary | Total spend (₹) | ✅ |
+
+K-Means clustering (k=4) groups customers into four behavioural segments by their distance from
+cluster centroids in RFM space. Features are **StandardScaler-normalized** first — a critical step
+because Recency (in days) and Monetary (in ₹) operate on completely different scales.
 
 ---
 
 ## 📂 Project Structure
-*   `generate_data.py`: Creates realistic banking datasets (`customers.csv` and `transactions.csv`) with hidden transaction patterns.
-*   `POWER_BI_INSTRUCTIONS.md`: Complete, step-by-step guide with exact DAX formulas to recreate the dashboard.
-*   `data/`: Directory where the raw CSVs are saved.
 
-## 📊 How to explain this in an interview
-> *"I built a Power BI dashboard to help the marketing team allocate their retention budget. Instead of a standard report, I integrated a Python script directly into Power Query that runs a K-Means clustering algorithm over the customers' Recency, Frequency, and Monetary values. This automatically groups them into 4 distinct behavioral segments. I then wrote advanced DAX measures to build a Cohort Retention Heatmap and a What-If parameter, so the marketing manager can use a slider to simulate the financial ROI of a cash-back campaign on the 'At-Risk' segment."*
+```
+retail-banking-segmentation/
+│
+├── generate_data.py          # Synthetic data generator (run this first)
+├── POWER_BI_INSTRUCTIONS.md  # Full step-by-step build guide
+├── README.md                 # This file
+│
+└── data/
+    ├── customers.csv         # 5,000 customers with demographics
+    └── transactions.csv      # ~230,000 transactions over 12 months
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Data Generation | Python 3, NumPy, pandas |
+| Machine Learning | scikit-learn (KMeans, StandardScaler) |
+| Data Viz / BI | Power BI Desktop |
+| Query Language | Power Query M |
+| Business Logic | DAX (Advanced — What-If parameters, DATESINPERIOD, AVERAGEX) |
+
+---
+
+## 🚀 Key Features
+
+### 1. Python K-Means Inside Power Query
+The clustering model runs **natively inside Power BI's data refresh pipeline** via the
+`Run Python Script` step. This means every time the data refreshes, the segments update
+automatically — no external ML pipeline needed.
+
+### 2. Four-Page Dashboard Architecture
+| Page | Purpose |
+|------|---------|
+| Executive Overview | C-suite KPIs: total customers, transactions, MAU trend |
+| Customer Segmentation | RFM scatter plot coloured by segment, segment profile table |
+| Cohort & Churn Analysis | Monthly active user retention, churn by city/channel |
+| Campaign ROI Simulator | Interactive What-If slider for retention offer budget |
+
+### 3. What-If Campaign ROI Slider (Advanced DAX)
+A dynamic parameter slider lets the marketing head type in a ₹ offer cost per at-risk customer.
+The DAX engine instantly recalculates:
+- Total campaign spend
+- Expected revenue saved (at an assumed 30% save rate)
+- Net ROI as a percentage
+
+---
+
+## ⚡ Quick Start
+
+```bash
+# 1. Generate the data
+python generate_data.py
+
+# 2. Open Power BI Desktop
+# 3. Follow POWER_BI_INSTRUCTIONS.md step by step
+```
+
+---
+
+## 📊 Customer Segments (What K-Means Discovers)
+
+| Segment | Recency | Frequency | Monetary | Strategy |
+|---------|---------|-----------|----------|---------|
+| **Champions** | < 30 days | High (50+) | High | Loyalty rewards, premium products |
+| **At Risk / Churning** | > 60 days | Medium-High | Medium-High | Win-back offer, personal call |
+| **Low Value** | Recent | Low (< 12) | Low | Activation nudges, UPI cashback |
+| **Average** | Medium | Medium | Medium | Cross-sell, FD/RD offers |
+
+---
+
+## 💬 Interview Talking Points
+
+> *"The core insight is that K-Means alone doesn't label clusters — you have to map them to business
+> meaning. I wrote a `StandardScaler` normalization step first, then used RFM thresholds to assign
+> readable names. On the Power BI side, I used DAX What-If parameters and `AVERAGEX` to build a
+> live ROI simulator so a non-technical marketing manager can make budget decisions directly in the
+> report without needing to run any code."*
+
+---
+
+## 🔮 Possible Extensions
+
+- [ ] Add CLTV (Customer Lifetime Value) prediction using a regression model
+- [ ] Pull live data from a PostgreSQL or Azure SQL database instead of CSVs
+- [ ] Schedule automated refresh in Power BI Service with a gateway
+- [ ] Add a churn probability score using logistic regression in the Python step
+
+---
+
+*Dataset is fully synthetic. All customer IDs, amounts, and behavioural patterns were
+programmatically generated for portfolio demonstration purposes.*
