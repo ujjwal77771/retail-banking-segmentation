@@ -163,4 +163,4 @@ MIT — see [LICENSE](LICENSE). Free to use, fork, or build on top of.
 
 ---
 
-*Built by Harsh Raj Pandey — feel free to connect on [LinkedIn](https://linkedin.com/in/) or raise an issue if something's broken!*
+*Built by Ujjwal Deep — feel free to connect on [LinkedIn](https://linkedin.com/in/) or raise an issue if something's broken!*
